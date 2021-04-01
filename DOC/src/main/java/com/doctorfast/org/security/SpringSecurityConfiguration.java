@@ -57,7 +57,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/doctor/list","/doctor/doctor-numero","/doctor/listEspecialidad",
                         "/paciente/list","/paciente/paciente-numero",
                         "/admin/registroAdmin", "/admin/list", "/admin/edit/**", "/admin/especialidades",
-                        "/cita/cita-numero","/cita/list", "/doctor/por_distrito/**",
+                        "/cita/cita-numero","/cita/list", "/doctor/por_distrito/**", "/doctor/por_rating/**",
                         "/usuario/cambiarpassword","/doctor/ratingpromedio/**").permitAll().anyRequest().authenticated()
                 .antMatchers("/doctor/calificar").hasRole("PACIENTE")
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).

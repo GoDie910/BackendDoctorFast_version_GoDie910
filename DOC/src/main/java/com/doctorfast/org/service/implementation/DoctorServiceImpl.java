@@ -7,6 +7,7 @@ import com.doctorfast.org.model.Usuario;
 import com.doctorfast.org.repository.DoctorRepository;
 import com.doctorfast.org.repository.RatingRepository;
 import com.doctorfast.org.repository.UsuarioRepository;
+import com.doctorfast.org.requests.DoctorRating;
 import com.doctorfast.org.requests.RatingRequest;
 import com.doctorfast.org.requests.RatingResponse;
 import com.doctorfast.org.service.DoctorService;
@@ -120,6 +121,23 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<Doctor> listarDoctoresPorDistrito(String distrito) throws Exception {
         return doctorRepository.findByDistrict(distrito);
+    }
+
+    @Override
+    public List<DoctorRating> listarDoctoresPorRanking(int rating) throws Exception {
+        List<Doctor> listDoctor = doctorRepository.findAll();
+        ArrayList<DoctorRating> listDoctorRating = new ArrayList<DoctorRating>();
+        DoctorRating doctorRating = new DoctorRating();
+
+        for(Doctor d:listDoctor){
+            doctorRating.setIdDoctor(d.getIdDoctor());
+            doctorRating.setRating(Double.parseDouble(calificacionpromedio(d.getIdDoctor())));
+            if(doctorRating.getRating() >= rating)
+                listDoctorRating.add(doctorRating);
+            doctorRating = new DoctorRating();
+        }
+
+        return listDoctorRating;
     }
 
 }

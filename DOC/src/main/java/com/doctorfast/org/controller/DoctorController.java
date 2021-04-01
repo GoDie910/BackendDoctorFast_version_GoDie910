@@ -3,6 +3,7 @@ package com.doctorfast.org.controller;
 
 import com.doctorfast.org.model.Doctor;
 import com.doctorfast.org.model.StringResponse;
+import com.doctorfast.org.requests.DoctorRating;
 import com.doctorfast.org.requests.RatingRequest;
 import com.doctorfast.org.requests.RatingResponse;
 import com.doctorfast.org.service.DoctorService;
@@ -86,8 +87,13 @@ public class DoctorController {
     }
 
     @GetMapping("/por_distrito/{distrito}")
-    public List<Doctor> ListaDoctoresPorDistrito(@PathVariable("distrito") String distrito) throws Exception {
+    public List<Doctor> listaDoctoresPorDistrito(@PathVariable("distrito") String distrito) throws Exception {
         return  doctorService.listarDoctoresPorDistrito(distrito);
+    }
+
+    @GetMapping("/por_rating/{rating}")
+    public List<DoctorRating> listaDoctoresPorRanking(@PathVariable("rating") int rating) throws Exception {
+        return doctorService.listarDoctoresPorRanking(rating);
     }
 
 

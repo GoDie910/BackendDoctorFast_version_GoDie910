@@ -1,6 +1,7 @@
 package com.doctorfast.org.service;
 
 import com.doctorfast.org.model.Doctor;
+import com.doctorfast.org.requests.DoctorRating;
 import com.doctorfast.org.requests.RatingRequest;
 import com.doctorfast.org.requests.RatingResponse;
 
@@ -28,5 +29,6 @@ public interface DoctorService {
 
     List<Doctor> listarDoctoresPorDistrito(String distrito) throws Exception;
 
+    List<DoctorRating> listarDoctoresPorRanking(int rating) throws Exception;
 
 }
