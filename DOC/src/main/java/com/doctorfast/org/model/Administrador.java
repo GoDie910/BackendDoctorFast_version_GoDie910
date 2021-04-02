@@ -18,12 +18,11 @@ public class Administrador {
     @Column(name = "administrador_id",columnDefinition = "serial")
     private Integer idAdministrador;
 
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     @Column(name = "habilitado")
     private Boolean habilitado;
 
-    @Column(name = "nombreUsuario")
-    private String nombreUsuario;
-
-    @Column(name = "password")
-    private String password;
 }

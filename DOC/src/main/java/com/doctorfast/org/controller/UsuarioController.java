@@ -1,9 +1,6 @@
 package com.doctorfast.org.controller;
 
-import com.doctorfast.org.model.Doctor;
-import com.doctorfast.org.model.Paciente;
-import com.doctorfast.org.model.Rol;
-import com.doctorfast.org.model.Usuario;
+import com.doctorfast.org.model.*;
 import com.doctorfast.org.requests.NuevoPasswordRequest;
 import com.doctorfast.org.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +28,19 @@ public class UsuarioController {
     }
 
     @PostMapping("/registroPaciente")
-    public void registrarPaciente(@RequestBody Paciente paciente) throws Exception{
-        usuarioService.registrarPaciente(paciente);
+    public Paciente registrarPaciente(@RequestBody Paciente paciente) throws Exception{
+        return usuarioService.registrarPaciente(paciente);
     }
 
     @PostMapping("/registroDoctor")
-    public void registrarDoctor(@RequestBody Doctor doctor) throws Exception{
-        usuarioService.registrarDoctor(doctor);
+    public Doctor registrarDoctor(@RequestBody Doctor doctor) throws Exception{
+        return usuarioService.registrarDoctor(doctor);
+    }
+
+    @PostMapping("/registroAdmin")
+    public Administrador registrarAdministrador(@RequestBody Administrador administrador) throws Exception{
+        administrador.setHabilitado(false);
+        return usuarioService.registrarAdministrador(administrador);
     }
 
     @CrossOrigin

@@ -37,6 +37,9 @@ public class JwtUtils {
         if (roles.contains(new SimpleGrantedAuthority("ROLE_DOCTOR"))) {
             claims.put("isDoctor", true);
         }
+        if (roles.contains(new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"))) {
+            claims.put("isAdministrador", true);
+        }
 
         return doGenerateToken(claims, userDetails.getUsername());
     }
@@ -72,6 +75,7 @@ public class JwtUtils {
 
         Boolean isPaciente = claims.get("isPaciente", Boolean.class);
         Boolean isDoctor = claims.get("isDoctor", Boolean.class);
+        Boolean isAdministrador = claims.get("isAdministrador", Boolean.class);
 
 
         if (isPaciente != null && isPaciente) {
@@ -81,6 +85,11 @@ public class JwtUtils {
         if (isDoctor != null && isDoctor) {
             roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_DOCTOR"));
         }
+
+        if(isAdministrador != null && isAdministrador) {
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"));
+        }
+
         return roles;
 
 

@@ -8,7 +8,5 @@ public interface AdministradorService {
 
     List<Administrador> listarAdministradores() throws Exception;
 
-    Administrador registrarAdministrador(Administrador administrador) throws Exception;
-
     Administrador modificarAdministrador(Administrador administrador) throws Exception;
 }

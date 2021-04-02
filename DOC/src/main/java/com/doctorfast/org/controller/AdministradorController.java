@@ -30,12 +30,6 @@ public class AdministradorController {
         return administradorService.listarAdministradores();
     }
 
-    @PostMapping("/registroAdmin")
-    public void registrarAdministrador(@RequestBody Administrador administrador) throws Exception{
-        administrador.setHabilitado(false);
-        administradorService.registrarAdministrador(administrador);
-    }
-
     @PutMapping(path = {"/edit/{id}"})
     public Administrador editar(@RequestBody Administrador administrador, @PathVariable("id") int id) throws Exception{
         administrador.setIdAdministrador(id);

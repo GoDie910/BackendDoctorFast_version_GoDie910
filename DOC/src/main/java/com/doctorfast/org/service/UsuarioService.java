@@ -1,9 +1,6 @@
 package com.doctorfast.org.service;
 
-import com.doctorfast.org.model.Doctor;
-import com.doctorfast.org.model.Paciente;
-import com.doctorfast.org.model.Rol;
-import com.doctorfast.org.model.Usuario;
+import com.doctorfast.org.model.*;
 import com.doctorfast.org.requests.NuevoPasswordRequest;
 
 import java.util.List;
@@ -15,6 +12,8 @@ public interface UsuarioService {
     Paciente registrarPaciente(Paciente paciente) throws Exception;
 
     Doctor registrarDoctor(Doctor doctor) throws  Exception;
+
+    Administrador registrarAdministrador(Administrador administrador) throws Exception;
 
     List<Rol> listarRoles() throws  Exception;
 

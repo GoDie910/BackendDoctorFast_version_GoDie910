@@ -16,6 +16,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
     private PacienteRepository pacienteRepository;
+    private AdministradorRepository administradorRepository;
     private RolRepository rolRepository;
     private UsuarioRolRepository usuarioRolRepository;
     private DoctorRepository doctorRepository;
@@ -24,12 +25,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     private PasswordEncoder bcryptEncoder;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PacienteRepository pacienteRepository,
-                              RolRepository rolRepository, UsuarioRolRepository usuarioRolRepository,
-                              DoctorRepository doctorRepository, EspecialidadRepository especialidadRepository,
-                              PasswordEncoder bcryptEncoder) {
+    public UsuarioServiceImpl(
+            UsuarioRepository usuarioRepository,
+            PacienteRepository pacienteRepository,
+            AdministradorRepository administradorRepository,
+            RolRepository rolRepository,
+            UsuarioRolRepository usuarioRolRepository,
+            DoctorRepository doctorRepository,
+            EspecialidadRepository especialidadRepository,
+            PasswordEncoder bcryptEncoder
+    ) {
         this.usuarioRepository = usuarioRepository;
         this.pacienteRepository = pacienteRepository;
+        this.administradorRepository = administradorRepository;
         this.rolRepository = rolRepository;
         this.usuarioRolRepository = usuarioRolRepository;
         this.doctorRepository = doctorRepository;
@@ -75,6 +83,22 @@ public class UsuarioServiceImpl implements UsuarioService {
         doctor.setEspecialidad(especialidad);
 
         return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Administrador registrarAdministrador(Administrador administrador) throws Exception {
+        administrador.setHabilitado(false);
+        String password = bcryptEncoder.encode(administrador.getUsuario().getPassword());
+        administrador.getUsuario().setPassword(password);
+        Usuario usuario = usuarioRepository.save(administrador.getUsuario());
+
+        UsuarioRol usuarioRol = new UsuarioRol();
+        Rol rol = rolRepository.getOne(3);
+        usuarioRol.setUsuario(usuario);
+        usuarioRol.setRol(rol);
+        usuarioRolRepository.save(usuarioRol);
+
+        return administradorRepository.save(administrador);
     }
 
     @Override
