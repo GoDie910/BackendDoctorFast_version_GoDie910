@@ -21,6 +21,12 @@ public class Cita {
     @Column(name = "cita_id",columnDefinition = "serial")
     private Integer idCita;
 
+    @Column(name="status")
+    private Integer status;
+
+    @Column(name="descripcion")
+    private String descripcion;
+
     @Column(name = "horaInicio")
     private LocalTime horaInicio;
 
@@ -45,8 +51,8 @@ public class Cita {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "prescripcionMedica_id")
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "prescripcionMedica_id", nullable = true)
     private PrescripcionMedica prescripcionMedica;
 
 }

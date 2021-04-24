@@ -1,5 +1,6 @@
 package com.doctorfast.org.requests;
 
+import com.doctorfast.org.repository.UsuarioRepository;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -9,15 +10,17 @@ public class AuthenticationResponse {
     private String token;
     private String type = "Bearer";
     private String username;
+    private Integer usuario_id;
     private Collection<? extends GrantedAuthority> authorities;
 
 
 
-    public AuthenticationResponse(String token, String username, Collection<? extends GrantedAuthority> authorities) {
+    public AuthenticationResponse(String token, String username, Integer usuario_id, Collection<? extends GrantedAuthority> authorities) {
         super();
         this.token = token;
         this.username = username;
         this.authorities = authorities;
+        this.usuario_id = usuario_id;
     }
 
     public String getToken() {
@@ -44,9 +47,15 @@ public class AuthenticationResponse {
         this.username = username;
     }
 
+    public Integer getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(Integer usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
-
-
 }

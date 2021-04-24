@@ -56,4 +56,5 @@ public class AdministradorServiceImpl implements AdministradorService {
 
         return administradorRepository.save(administrador);
     }
+
 }

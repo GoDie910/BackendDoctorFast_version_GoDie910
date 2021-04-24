@@ -30,13 +30,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<SimpleGrantedAuthority> roles = null;
 
-        Usuario usuario = usuarioRepository.findByUserName(username);
+        Usuario usuario = usuarioRepository.findByCorreo(username);
         if(usuario != null){
             UsuarioRol usuarioRol = usuarioRolRepository.findByUserId(usuario.getIdUser());
             roles = Arrays.asList(new SimpleGrantedAuthority(usuarioRol.getRol().getNombre()));
-            return new User(usuario.getNombreUsuario(),usuario.getPassword(),roles);
+            return new User(usuario.getCorreo(),usuario.getPassword(),roles);
         }
-        throw new UsernameNotFoundException("nombre de usuario no encontrado"+username);
+        throw new UsernameNotFoundException("correo de usuario no encontrado" + username);
 
     }
 }

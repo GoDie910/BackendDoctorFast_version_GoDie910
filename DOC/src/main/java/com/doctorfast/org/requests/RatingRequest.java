@@ -8,4 +8,6 @@ public class RatingRequest {
     private String calificacion;
 
     private Integer doctorId;
+
+    private Integer pacienteId;
 }

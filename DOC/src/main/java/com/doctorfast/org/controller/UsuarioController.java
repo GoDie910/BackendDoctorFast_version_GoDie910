@@ -43,28 +43,10 @@ public class UsuarioController {
         return usuarioService.registrarAdministrador(administrador);
     }
 
-    @CrossOrigin
-    @GetMapping("/roles")
-    public List<Rol> listarRoles() throws Exception{
-        return usuarioService.listarRoles();
-    }
-
-    @GetMapping("/list")
-    @PreAuthorize("hasRole('DOCTOR')")
-    public List<Usuario> ListarUsuarios() throws Exception{
-        return usuarioService.listarUsuarios();
-    }
-
-    @GetMapping("/pacientes")
-    public ResponseEntity<List<Paciente>> listarPacientes() throws Exception{
-        return ResponseEntity.ok(usuarioService.listarPacientes());
-    }
-
     @PutMapping("/cambiarpassword")
     public int actualizarPassword(@RequestBody NuevoPasswordRequest nuevoPasswordRequest) throws Exception{
         return usuarioService.cambiarPassword(nuevoPasswordRequest);
     }
-
 
     @GetMapping("/prueba")
     @PreAuthorize("hasRole('DOCTOR') or hasRole('PACIENTE')")

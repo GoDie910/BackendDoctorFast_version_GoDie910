@@ -1,8 +1,10 @@
 package com.doctorfast.org.controller;
 
+import com.doctorfast.org.repository.UsuarioRepository;
 import com.doctorfast.org.requests.AuthenticationRequest;
 import com.doctorfast.org.requests.AuthenticationResponse;
 import com.doctorfast.org.security.jwt.JwtUtils;
+import com.doctorfast.org.service.UsuarioService;
 import com.doctorfast.org.service.implementation.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,14 @@ public class AuthenticationController {
     @Autowired
     private JwtUtils jwtUtil;
 
+    private UsuarioService usuarioService;
+
+    @Autowired
+    public AuthenticationController (
+            UsuarioService usuarioService
+    ) {
+        this.usuarioService = usuarioService;
+    }
 
 
 
@@ -53,7 +63,8 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userdetails = (UserDetails) authentication.getPrincipal();
         String token = jwtUtil.generateToken(userdetails);
-        return ResponseEntity.ok(new AuthenticationResponse(token, userdetails.getUsername(), userdetails.getAuthorities()));
+        Integer usuario_id = usuarioService.getUsuarioByCorreo(userdetails.getUsername()).getIdUser();
+        return ResponseEntity.ok(new AuthenticationResponse(token, userdetails.getUsername(), usuario_id, userdetails.getAuthorities()));
 
     }
 

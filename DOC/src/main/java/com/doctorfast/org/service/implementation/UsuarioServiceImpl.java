@@ -107,13 +107,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public List<Paciente> listarPacientes() throws Exception {
-        return pacienteRepository.findAll();
+    public List<Usuario> listarUsuarios() throws Exception {
+        return usuarioRepository.findAll();
     }
 
     @Override
-    public List<Usuario> listarUsuarios() throws Exception {
-        return usuarioRepository.findAll();
+    public Usuario getUsuarioByUsername(String username) throws Exception {
+        return usuarioRepository.findByUserName(username);
+    }
+
+    @Override
+    public Usuario getUsuarioByCorreo(String correo) throws Exception {
+        return usuarioRepository.findByCorreo(correo);
     }
 
     @Override

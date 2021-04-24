@@ -18,6 +18,7 @@ public interface DoctorService {
 
     Optional<Doctor> getOne(int id) throws  Exception;
 
+    Doctor obtenerDoctorPerfil(int id) throws  Exception;
 
     Doctor edit(Doctor d) throws Exception;
 
@@ -29,6 +30,10 @@ public interface DoctorService {
 
     List<Doctor> listarDoctoresPorDistrito(String distrito) throws Exception;
 
+    List<Doctor> listarDoctoresDisponibles() throws Exception;
+
     List<DoctorRating> listarDoctoresPorRanking(int rating) throws Exception;
+
+    List<DoctorRating> listarDoctoresPorRankingMejores() throws Exception;
 
 }

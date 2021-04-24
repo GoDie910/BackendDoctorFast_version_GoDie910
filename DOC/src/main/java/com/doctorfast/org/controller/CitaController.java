@@ -18,31 +18,13 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/cita")
-public class CitaControlller {
+public class CitaController {
 
     private CitaService citaService;
 
     @Autowired
-    public CitaControlller(CitaService citaService){
+    public CitaController(CitaService citaService){
         this.citaService=citaService;
-    }
-
-
-
-    @GetMapping("/list")
-    @PreAuthorize("hasRole('DOCTOR')")
-    public List<Cita> ListaCitas() throws Exception{
-        return citaService.listarCitas();
-    }
-
-    @GetMapping("/cita-numero")
-    @PreAuthorize("hasRole('DOCTOR')")
-    public ResponseEntity<?> numeroDeCitas(){
-        Long number = citaService.numeroDeCitas();
-        StringResponse response = new StringResponse();
-        response.setResponse(number.toString());
-        return new ResponseEntity<>(response, HttpStatus.OK);
-
     }
 
 

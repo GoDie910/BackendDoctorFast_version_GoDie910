@@ -51,17 +51,48 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/usuario/roles").hasRole("ADMINISTRADOR")
-                .antMatchers("/usuario/roles").hasRole("DOCTOR")
-                .antMatchers("/doctor/calificar").hasRole("PACIENTE")
-                .antMatchers("/login","/api/auth","/api/auth/login", "/usuario/pacientes",
-                        "/usuario/registroPaciente","/usuario/registroDoctor","/usuario/prueba","/prueba","/list",
-                        "/usuario/list","/doctor/list","/doctor/edit/**","/doctor/detail/**","/edit/**",
-                        "/doctor/list","/doctor/doctor-numero","/doctor/listEspecialidad",
-                        "/paciente/list","/paciente/paciente-numero",
-                        "/usuario/registroAdmin", "/admin/list", "/admin/edit/**", "/admin/especialidades",
-                        "/cita/cita-numero","/cita/list", "/doctor/por_distrito/**", "/doctor/por_rating/**",
-                        "/usuario/cambiarpassword","/doctor/ratingpromedio/**").permitAll().anyRequest().authenticated()
+                .antMatchers(
+                        "/admin/admin/list",
+                        "/admin/cita/list",
+                        "/admin/cita/cita-numero",
+                        "/admin/paciente/list",
+                        "/admin/paciente/paciente-numero",
+                        "/admin/usuario/roles",
+                        "/admin/usuario/list",
+                        "/admin/doctor/list",
+                        "/admin/doctor/**",
+                        "/admin/doctor/detail/**",
+                        "/admin/doctor/edit/**",
+                        "/admin/doctor/ratingpromedio/**",
+                        "/admin/doctor/doctor-numero",
+                        "/admin/doctor/por_distrito/**",
+                        "/admin/doctor/por_rating/**",
+                        "/admin/doctor/por_rating/mejores",
+                        "/admin/roles/por-numero"
+                ).hasRole("ADMINISTRADOR")
+                .antMatchers(
+                        "/doctor/perfil/**",
+                        "/doctor/citas/en_curso/**",
+                        "/doctor/citas/historial/**"
+                ).hasRole("DOCTOR")
+                .antMatchers(
+                        "/paciente/doctor/calificar",
+                        "/paciente/perfil/**",
+                        "/paciente/doctor/disponibles",
+                        "/paciente/citas/en_curso/**",
+                        "/paciente/citas/historial/**",
+                        "/paciente/citas/crear",
+                        "/paciente/area_sintoma/list"
+                ).hasRole("PACIENTE")
+                .antMatchers(
+                        "/api/auth/login",
+                        "/usuario/registro",
+                        "/usuario/registroPaciente",
+                        "/usuario/registroDoctor",
+                        "/usuario/registroAdmin",
+                        "/admin/especialidades",
+                        "/usuario/cambiarpassword" //revisalo, asegurate que funciona
+                        ).permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
                 and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

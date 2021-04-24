@@ -17,9 +17,11 @@ public interface UsuarioService {
 
     List<Rol> listarRoles() throws  Exception;
 
-    List<Paciente> listarPacientes() throws Exception;
-
     List<Usuario> listarUsuarios() throws Exception;
+
+    Usuario getUsuarioByUsername(String username) throws Exception;
+
+    Usuario getUsuarioByCorreo(String correo) throws Exception;
 
     int cambiarPassword(NuevoPasswordRequest nuevoPasswordRequest) throws  Exception;
 }
