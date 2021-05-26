@@ -15,4 +15,8 @@ public class RatingResponse {
 
     private Integer pacienteId;
 
+    private Integer usuarioId;
+
+    private Integer citaId;
+
 }

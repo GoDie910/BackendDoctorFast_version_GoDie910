@@ -36,4 +36,6 @@ public interface DoctorService {
 
     List<DoctorRating> listarDoctoresPorRankingMejores() throws Exception;
 
+    int cambiarStatus(int id) throws Exception;
+
 }

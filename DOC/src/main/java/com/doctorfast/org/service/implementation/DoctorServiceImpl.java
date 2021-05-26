@@ -1,10 +1,7 @@
 package com.doctorfast.org.service.implementation;
 
 import com.doctorfast.org.model.*;
-import com.doctorfast.org.repository.DoctorRepository;
-import com.doctorfast.org.repository.PacienteRepository;
-import com.doctorfast.org.repository.RatingRepository;
-import com.doctorfast.org.repository.UsuarioRepository;
+import com.doctorfast.org.repository.*;
 import com.doctorfast.org.requests.DoctorRating;
 import com.doctorfast.org.requests.RatingRequest;
 import com.doctorfast.org.requests.RatingResponse;
@@ -26,27 +23,32 @@ public class DoctorServiceImpl implements DoctorService {
     private DoctorRepository doctorRepository;
     private PacienteRepository pacienteRepository;
     private UsuarioRepository usuarioRepository;
+    private CitaRepository citaRepository;
 
     @Autowired
     public DoctorServiceImpl(
             RatingRepository ratingRepository,
             DoctorRepository doctorRepository,
             PacienteRepository pacienteRepository,
-            UsuarioRepository usuarioRepository){
+            UsuarioRepository usuarioRepository,
+            CitaRepository citaRepository){
         this.ratingRepository = ratingRepository;
         this.doctorRepository = doctorRepository;
         this.pacienteRepository = pacienteRepository;
         this.usuarioRepository = usuarioRepository;
+        this.citaRepository = citaRepository;
     }
 
     @Override
     public RatingResponse calificarDoctor(RatingRequest rating) throws Exception {
         Doctor doctor = doctorRepository.getOne(rating.getDoctorId());
-        Paciente paciente = pacienteRepository.getOne(rating.getPacienteId());
+        Optional<Usuario> usuario = usuarioRepository.findById(rating.getUsuarioId());
+        Paciente paciente = pacienteRepository.findByUsuarioId(usuario.get().getIdUser());
+        Cita cita = citaRepository.getOne(rating.getCitaId());
 
         RatingResponse ratingResponse = new RatingResponse();
 
-        Optional<Rating> rating_optional = ratingRepository.findByDoctorIdandPacienteId(rating.getDoctorId(), rating.getPacienteId());
+        Optional<Rating> rating_optional = ratingRepository.findByDoctorIdandPacienteIdandCitaId(rating.getDoctorId(), paciente.getIdPaciente(), rating.getCitaId());
 
         if(rating_optional.isPresent()){
             Rating rating_existente = rating_optional.get();
@@ -55,19 +57,24 @@ public class DoctorServiceImpl implements DoctorService {
 
             ratingResponse.setIdRating(rating_existente.getIdRating());
             ratingResponse.setCalificacion(rating_existente.getCalificacion());
-            ratingResponse.setDoctorId(rating.getDoctorId());
-            ratingResponse.setPacienteId(rating.getPacienteId());
+            ratingResponse.setDoctorId(rating_existente.getDoctor().getIdDoctor());
+            ratingResponse.setPacienteId(rating_existente.getPaciente().getIdPaciente());
+            ratingResponse.setUsuarioId(rating.getUsuarioId());
+            ratingResponse.setCitaId(rating_existente.getCita().getIdCita());
         }else{
             Rating calificacion = new Rating();
             calificacion.setCalificacion(rating.getCalificacion());
             calificacion.setDoctor(doctor);
             calificacion.setPaciente(paciente);
+            calificacion.setCita(cita);
             ratingRepository.save(calificacion);
 
             ratingResponse.setIdRating(calificacion.getIdRating());
             ratingResponse.setCalificacion(calificacion.getCalificacion());
-            ratingResponse.setDoctorId(rating.getDoctorId());
-            ratingResponse.setPacienteId(rating.getPacienteId());
+            ratingResponse.setDoctorId(calificacion.getDoctor().getIdDoctor());
+            ratingResponse.setPacienteId(calificacion.getPaciente().getIdPaciente());
+            ratingResponse.setUsuarioId(rating.getUsuarioId());
+            ratingResponse.setCitaId(calificacion.getCita().getIdCita());
         }
 
         return ratingResponse;
@@ -226,4 +233,11 @@ public class DoctorServiceImpl implements DoctorService {
         }
     }
 
+    @Override
+    public int cambiarStatus(int id) throws Exception {
+        Doctor doctor = doctorRepository.findByUsuarioId(id);
+        boolean status;
+        status = doctor.getDisponibilidad() == true ? false : true;
+        return doctorRepository.cambiarStatusDoctor(status, doctor.getIdDoctor());
+    }
 }

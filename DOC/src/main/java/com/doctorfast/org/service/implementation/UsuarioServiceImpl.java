@@ -79,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuarioRolRepository.save(usuarioRol);
 
-        Especialidad especialidad = especialidadRepository.findByDescripcion(doctor.getEspecialidad().getNombre());
+        Especialidad especialidad = especialidadRepository.findByNombre(doctor.getEspecialidad().getNombre());
         doctor.setEspecialidad(especialidad);
 
         return doctorRepository.save(doctor);

@@ -9,5 +9,7 @@ public class RatingRequest {
 
     private Integer doctorId;
 
-    private Integer pacienteId;
+    private Integer usuarioId;
+
+    private Integer citaId;
 }

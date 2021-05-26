@@ -72,16 +72,27 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 ).hasRole("ADMINISTRADOR")
                 .antMatchers(
                         "/doctor/perfil/**",
-                        "/doctor/citas/en_curso/**",
-                        "/doctor/citas/historial/**"
+                        "/doctor/citas/disponibles/**",
+                        "/doctor/citas/pendientes/**",
+                        "/doctor/citas/aceptar/**&**",
+                        "/doctor/citas/cancelar/**&**",
+                        "/doctor/citas/historial/**",
+                        "/doctor/status/**",
+                        "/doctor/citas/crear_diagnosticos",
+                        "/doctor/citas/crear_prescripciones_medicas",
+                        "/doctor/citas/realizar_cita",
+                        "/doctor/citas/historial_medico/**",
+                        "/doctor/medicamento/list"
                 ).hasRole("DOCTOR")
                 .antMatchers(
                         "/paciente/doctor/calificar",
                         "/paciente/perfil/**",
                         "/paciente/doctor/disponibles",
-                        "/paciente/citas/en_curso/**",
-                        "/paciente/citas/historial/**",
                         "/paciente/citas/crear",
+                        "/paciente/citas/disponibles/**",
+                        "/paciente/citas/pendientes/**",
+                        "/paciente/citas/historial/**",
+                        "/paciente/citas/historial_medico/**",
                         "/paciente/area_sintoma/list"
                 ).hasRole("PACIENTE")
                 .antMatchers(

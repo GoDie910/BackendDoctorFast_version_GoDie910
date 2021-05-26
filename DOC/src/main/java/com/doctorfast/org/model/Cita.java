@@ -51,8 +51,4 @@ public class Cita {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "prescripcionMedica_id", nullable = true)
-    private PrescripcionMedica prescripcionMedica;
-
 }

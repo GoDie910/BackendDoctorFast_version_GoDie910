@@ -30,4 +30,8 @@ public class Rating {
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "cita_id")
+    private Cita cita;
 }

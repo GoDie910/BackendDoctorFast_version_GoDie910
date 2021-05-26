@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface EspecialidadRepository extends JpaRepository<Especialidad,Integer> {
 
     @Query(value = "SELECT * FROM especialidad e WHERE e.nombre = ?1",nativeQuery = true)
-    Especialidad findByDescripcion(String nombre);
+    Especialidad findByNombre(String nombre);
 
 }

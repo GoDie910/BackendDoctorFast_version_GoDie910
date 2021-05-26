@@ -20,18 +20,21 @@ public class PrescripcionMedica {
     @Column(name = "prescripcionMedica_id",columnDefinition = "serial")
     private Integer idPrescripcionMedica;
 
-    @Column(name = "codigoPrescripcion")
-    private String codigoPrescripcion;
+    @ManyToOne
+    @JoinColumn(name = "medicamento_id")
+    private Medicamento medicamento;
 
     @Column(name = "fechaInicio")
     private Date fechaInicio;
 
-    @Column(name = "fechaFin")
-    private Date fechaFin;
-
     @Column(name = "cantidad")
     private Integer cantidad;
 
-    @Column(name = "frecuencia")
-    private String frecuencia;
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @ManyToOne
+    @JoinColumn(name = "cita_id")
+    private Cita cita;
+
 }

@@ -2,10 +2,7 @@ package com.doctorfast.org.controller;
 
 
 import com.doctorfast.org.model.*;
-import com.doctorfast.org.requests.CitaCreateRequest;
-import com.doctorfast.org.requests.DoctorRating;
-import com.doctorfast.org.requests.RatingRequest;
-import com.doctorfast.org.requests.RatingResponse;
+import com.doctorfast.org.requests.*;
 import com.doctorfast.org.service.AreaSintomaService;
 import com.doctorfast.org.service.CitaService;
 import com.doctorfast.org.service.DoctorService;
@@ -63,9 +60,19 @@ public class PacienteController {
         return pacienteService.obtenerPacientePerfil(id);
     }
 
-    @GetMapping("/citas/en_curso/{id}")
-    public List<Cita> obtenerMiCtiasEnCurso(@PathVariable("id") int id) throws Exception {
-        return citaService.listarCitasEnCursoPaciente(id);
+    @PostMapping("/citas/crear")
+    public Cita crearCita(@RequestBody CitaCreateRequest cita) throws Exception {
+        return citaService.crearCitaPaciente(cita);
+    }
+
+    @GetMapping("/citas/disponibles/{id}")
+    public List<Cita> obtenerMisCitasDisponibles(@PathVariable("id") int id) throws Exception {
+        return citaService.listarCitasDisponiblesPaciente(id);
+    }
+
+    @GetMapping("/citas/pendientes/{id}")
+    public List<Cita> obtenerMisCitasPendientes(@PathVariable("id") int id) throws Exception {
+        return citaService.listarCitasPendientesPaciente(id);
     }
 
     @GetMapping("/citas/historial/{id}")
@@ -73,13 +80,14 @@ public class PacienteController {
         return citaService.listarHistorialCitasPaciente(id);
     }
 
-    @PostMapping("/citas/crear")
-    public Cita crearCita(@RequestBody CitaCreateRequest cita) throws Exception {
-        return citaService.crearCitaPaciente(cita);
+    @GetMapping("/citas/historial_medico/{id}")
+    public List<HistoriaMedicaResponse> listHistorialMedico(@PathVariable("id") int id) throws Exception {
+        return citaService.HistorialMedicoPaciente(id);
     }
 
     @GetMapping("/area_sintoma/list")
     public List<AreaSintoma> listAreaSintoma() throws Exception {
         return areaSintomaService.listarAreaSintoma();
     }
+
 }
