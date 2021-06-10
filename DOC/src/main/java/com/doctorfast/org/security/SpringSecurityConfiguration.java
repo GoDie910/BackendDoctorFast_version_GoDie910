@@ -101,6 +101,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/usuario/registroPaciente",
                         "/usuario/registroDoctor",
                         "/usuario/registroAdmin",
+                        "/usuario/ubicacion/obtener/**",
+                        "/usuario/ubicacion/actualizar",
                         "/admin/especialidades",
                         "/usuario/cambiarpassword" //revisalo, asegurate que funciona
                         ).permitAll().anyRequest().authenticated()

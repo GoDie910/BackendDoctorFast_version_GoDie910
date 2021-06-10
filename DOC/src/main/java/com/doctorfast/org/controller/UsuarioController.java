@@ -2,6 +2,7 @@ package com.doctorfast.org.controller;
 
 import com.doctorfast.org.model.*;
 import com.doctorfast.org.requests.NuevoPasswordRequest;
+import com.doctorfast.org.requests.UbicacionActualizarRequest;
 import com.doctorfast.org.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,16 @@ public class UsuarioController {
     @PutMapping("/cambiarpassword")
     public int actualizarPassword(@RequestBody NuevoPasswordRequest nuevoPasswordRequest) throws Exception{
         return usuarioService.cambiarPassword(nuevoPasswordRequest);
+    }
+
+    @GetMapping("/ubicacion/obtener/{usuario_id}")
+    public Usuario obtenerUbicacion(@PathVariable("usuario_id") Integer usuario_id) throws Exception {
+        return usuarioService.obtenerUbicacion(usuario_id);
+    }
+
+    @PutMapping("/ubicacion/actualizar")
+    public int actualizarUbicacion(@RequestBody UbicacionActualizarRequest ubicacionActualizarRequest) throws Exception{
+        return usuarioService.cambiarUbicacion(ubicacionActualizarRequest.getUsuario_id(), ubicacionActualizarRequest.getLatitud(), ubicacionActualizarRequest.getLongitud());
     }
 
     @GetMapping("/prueba")

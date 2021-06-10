@@ -51,4 +51,10 @@ public class Usuario {
     @Column(name = "direccion")
     private String direccion;
 
+    @Column(name = "latitud")
+    private String latitud;
+
+    @Column(name = "longitud")
+    private String longitud;
+
 }

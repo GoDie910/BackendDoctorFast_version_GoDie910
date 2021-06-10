@@ -131,4 +131,14 @@ public class UsuarioServiceImpl implements UsuarioService {
                 nuevoPasswordRequest.getDni(),nuevoPasswordRequest.getCorreo(),nuevoPasswordRequest.getNuevoPassword());
 
     }
+
+    @Override
+    public Usuario obtenerUbicacion(Integer usuario_id) throws Exception {
+        return usuarioRepository.findByUsuario_id(usuario_id);
+    }
+
+    @Override
+    public int cambiarUbicacion(Integer usuario_id, String latitud, String longitud) throws Exception {
+        return usuarioRepository.updateUbicacion(usuario_id, latitud, longitud);
+    }
 }

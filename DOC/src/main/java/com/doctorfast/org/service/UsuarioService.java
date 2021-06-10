@@ -24,4 +24,8 @@ public interface UsuarioService {
     Usuario getUsuarioByCorreo(String correo) throws Exception;
 
     int cambiarPassword(NuevoPasswordRequest nuevoPasswordRequest) throws  Exception;
+
+    Usuario obtenerUbicacion(Integer usuario_id) throws Exception;
+
+    int cambiarUbicacion(Integer usuario_id, String latitud, String longitud) throws Exception;
 }

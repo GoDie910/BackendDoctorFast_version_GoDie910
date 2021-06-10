@@ -142,7 +142,7 @@ public class CitaServiceImpl implements CitaService {
                     historiaMedicaPrescripcionMedicaResponse.setCantidad(listPrescripcionMedicaCita.get().get(j).getCantidad());
                     historiaMedicaPrescripcionMedicaResponse.setFechaInicio(listPrescripcionMedicaCita.get().get(j).getFechaInicio());
                     historiaMedicaPrescripcionMedicaResponse.setDescripcion(listPrescripcionMedicaCita.get().get(j).getDescripcion());
-                    historiaMedicaPrescripcionMedicaResponse.setMedicamento(listPrescripcionMedicaCita.get().get(i).getMedicamento());
+                    historiaMedicaPrescripcionMedicaResponse.setMedicamento(listPrescripcionMedicaCita.get().get(j).getMedicamento());
 
                     historiaMedicaPrescripcionMedicaResponseList.add(historiaMedicaPrescripcionMedicaResponse);
                     historiaMedicaPrescripcionMedicaResponse = new HistoriaMedicaPrescripcionMedicaResponse();
@@ -221,17 +221,13 @@ public class CitaServiceImpl implements CitaService {
                     historiaMedicaPrescripcionMedicaResponse.setCantidad(listPrescripcionMedicaCita.get().get(j).getCantidad());
                     historiaMedicaPrescripcionMedicaResponse.setFechaInicio(listPrescripcionMedicaCita.get().get(j).getFechaInicio());
                     historiaMedicaPrescripcionMedicaResponse.setDescripcion(listPrescripcionMedicaCita.get().get(j).getDescripcion());
-                    historiaMedicaPrescripcionMedicaResponse.setMedicamento(listPrescripcionMedicaCita.get().get(i).getMedicamento());
+                    historiaMedicaPrescripcionMedicaResponse.setMedicamento(listPrescripcionMedicaCita.get().get(j).getMedicamento());
 
                     historiaMedicaPrescripcionMedicaResponseList.add(historiaMedicaPrescripcionMedicaResponse);
                     historiaMedicaPrescripcionMedicaResponse = new HistoriaMedicaPrescripcionMedicaResponse();
                 }
                 historiaMedicaResponse.setPrescripcionesMedicas(Optional.of(historiaMedicaPrescripcionMedicaResponseList));
             }
-
-
-            //-----------------------------
-            //-----------------------------
             //-----------------------------
             //-----------------------------
             historiaMedicaResponseList.add(historiaMedicaResponse);

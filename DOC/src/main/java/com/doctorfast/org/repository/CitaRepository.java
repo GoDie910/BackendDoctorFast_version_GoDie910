@@ -24,10 +24,10 @@ public interface CitaRepository extends JpaRepositoryImplementation<Cita, Intege
     @Query(value = "SELECT * FROM cita where fecha_cita >= current_Date and status in (1,3) and paciente_id = ?1", nativeQuery = true)
     List<Cita> findPendientesPaciente(int id);
 
-    @Query(value = "SELECT * FROM cita where fecha_cita < current_Date and status in (2,3,4) and paciente_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM cita where fecha_cita <= current_Date and hora_fin <= current_time(0) and status in (2,3,4) and paciente_id = ?1", nativeQuery = true)
     List<Cita> findHistorialPaciente (int id);
 
-    @Query(value = "SELECT * FROM cita where fecha_cita < current_Date and status = 4 and paciente_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM cita where fecha_cita <= current_Date and hora_fin <= current_time(0) and status = 4 and paciente_id = ?1", nativeQuery = true)
     List<Cita> findHistoriaMedicaPaciente(int id);
 
 
@@ -39,7 +39,7 @@ public interface CitaRepository extends JpaRepositoryImplementation<Cita, Intege
     @Query(value = "SELECT * FROM cita where fecha_cita >= current_Date and doctor_id = ?1 and status = 2", nativeQuery = true)
     List<Cita> findDisponiblesDoctor(int id);
 
-    @Query(value = "SELECT * FROM cita where fecha_cita < current_Date and doctor_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM cita where fecha_cita <= current_Date and hora_fin <= current_time(0) and doctor_id = ?1", nativeQuery = true)
     List<Cita> findHistorialDoctor(int id);
 
     @Modifying
